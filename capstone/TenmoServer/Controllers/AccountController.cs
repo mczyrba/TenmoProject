@@ -1,16 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TenmoServer.DAO;
 
 namespace TenmoServer.Controllers
 {
-    public class AccountController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IUserDao userDao;
+
+        public AccountController(IUserDao _userDao)
         {
-            return View();
+            userDao = _userDao;
         }
     }
 }
