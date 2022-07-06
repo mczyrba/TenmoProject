@@ -6,9 +6,9 @@ using TenmoServer.Models;
 
 namespace TenmoServer.DAO
 {
-    interface ITransferDao
+    public interface ITransferDao
     {
-        Transfer Transfer(int fromUser, int toUser);
+        Transfer Transfer(int fromUser, int toUser, decimal transferAmount);
         List<Transfer> SeeTransfers();
         Transfer TransferDetails(int transferId, string transferType);
     }

@@ -23,7 +23,8 @@ namespace TenmoServer.Controllers
         [HttpGet("/{account_id}")]
         public ActionResult<Account> GetBalance(int accountId)
         {
-            Account balance = 
+            //Account balance = null;
+            return null;
         }
     }
 }
