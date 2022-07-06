@@ -11,7 +11,7 @@ namespace TenmoServer.DAO
     {
         Transfer MakeTransfer(int fromUser, int toUser, decimal transferAmount);
 
-        List<Transfer> SeeTransfers();
+        List<Transfer> SeeTransfers(int accountId);
         Transfer TransferDetails(int transferId);
     }
 }
