@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TenmoServer.Models;
+using System.Data.SqlClient;
 
 namespace TenmoServer.DAO
 {
-    interface ITransferDao
+    public interface ITransferDao
     {
-        Transfer Transfer(int fromUser, int toUser);
+        Transfer MakeTransfer(int fromUser, int toUser, decimal transferAmount);
+
         List<Transfer> SeeTransfers();
-        Transfer TransferDetails(int transferId, string transferType);
+        Transfer TransferDetails(int transferId);
     }
 }
