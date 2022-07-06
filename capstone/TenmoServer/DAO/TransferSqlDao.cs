@@ -7,7 +7,7 @@ using TenmoServer.Models;
 
 namespace TenmoServer.DAO
 {
-    public class TransferSqlDao
+    public class TransferSqlDao : ITransferDao
     {
         private readonly string connectionString;
 
@@ -16,8 +16,9 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public void MakeTransfer(int fromUser, int toUser, decimal transferAmount)
+        public Transfer MakeTransfer(int fromUser, int toUser, decimal transferAmount)
         {
+            Transfer returnTransfer = null;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -30,7 +31,14 @@ namespace TenmoServer.DAO
                     cmd.Parameters.AddWithValue("@toUser", toUser);
                     cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
 
-                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnTransfer = CreateTransferFromReader(reader);
+                    }
+
+                    return returnTransfer;
                 }
             }
             catch (SqlException) { throw; }
