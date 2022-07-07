@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TenmoServer.Controllers
 {
-    [Authorize]
+    
     [Route("[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -46,7 +46,7 @@ namespace TenmoServer.Controllers
 
             return result;
         }
-        [AllowAnonymous]
+        
         [HttpPost("register")]
         public IActionResult Register(LoginUser userParam)
         {
