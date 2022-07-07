@@ -29,7 +29,7 @@ namespace TenmoServer
             string connectionString = Configuration.GetConnectionString("Project");
 
             // configure jwt authentication
-            var key = Encoding.ASCII.GetBytes(Configuration["JwtSecret"]);
+            var key = Encoding.ASCII.GetBytes(Configuration["JwtSecret"]);  
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap[JwtRegisteredClaimNames.Sub] = "sub";
             services.AddAuthentication(x =>
             {

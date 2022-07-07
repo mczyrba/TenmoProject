@@ -7,7 +7,7 @@ namespace TenmoServer.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginController : ControllerBase 
     {
         private readonly ITokenGenerator tokenGenerator;
         private readonly IPasswordHasher passwordHasher;

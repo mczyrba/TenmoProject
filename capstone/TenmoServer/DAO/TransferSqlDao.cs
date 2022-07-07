@@ -24,7 +24,6 @@ namespace TenmoServer.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
                     SqlCommand cmd = new SqlCommand("UPDATE account SET balance -= @transferAmount WHERE account_id = @fromUser;" +
                         " UPDATE account SET balance += @transferAmount WHERE account_id = @toUser", conn);
                     cmd.Parameters.AddWithValue("@fromUser", fromUser);
@@ -32,6 +31,9 @@ namespace TenmoServer.DAO
                     cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
 
                     SqlDataReader reader = cmd.ExecuteReader();
+                   
+
+
 
                     if (reader.Read())
                     {
