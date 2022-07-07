@@ -9,8 +9,8 @@ namespace TenmoServer.DAO
 {
     public interface ITransferDao
     {
-        Transfer MakeTransfer(int fromUser, int toUser, decimal transferAmount);
-
+        void MakeTransferSend(int fromUser, int toUser, decimal transferAmount);
+        Transfer MakeTransferRequest(int fromUser, int toUser, decimal transferAmount);
         List<Transfer> SeeTransfers(int accountId);
         Transfer TransferDetails(int transferId);
     }
