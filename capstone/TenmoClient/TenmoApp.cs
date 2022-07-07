@@ -73,7 +73,7 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                // View your current balance
+                tenmoApiService.GetAccountBalance(tenmoApiService.UserId);
             }
 
             if (menuSelection == 2)

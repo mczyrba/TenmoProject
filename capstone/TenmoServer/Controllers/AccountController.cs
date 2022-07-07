@@ -25,14 +25,14 @@ namespace TenmoServer.Controllers
             transferDao = _transferDao;
         }
 
-        [HttpGet()] // step 3
+        [HttpGet("/account/{userId}")] // step 3
         public ActionResult<Account> GetBalance(int userId)
         {
             Account account = accountDao.GetAccountBalance(userId);
 
             if(account != null)
             {
-                return account;
+                return Ok(account.Balance);
             }
             else
             {
