@@ -42,14 +42,14 @@ namespace TenmoServer.Controllers
         }
         
 
-        [HttpPut("transfer/fromAccount")] // step 4
+        [HttpPost("transfer/fromAccount")] // step 4
         public ActionResult MakeTransfer(int fromAccount, int toAccount, decimal transferAmount)
         { 
             if(toAccount == fromAccount)
             {
                 return BadRequest(new { message = "Invalid transfer request. Cannot transfer to same account." });
             }
-            else if(transferAmount <= 0 || transferAmount >= accountDao.GetAccountBalance(fromAccount).Balance)
+            else if(transferAmount <= 0 || transferAmount > accountDao.GetAccountBalance(fromAccount).Balance)
             {
                 return BadRequest(new { message = "Invalid transfer request. Transfer amount must be greater than 0." });
             }
