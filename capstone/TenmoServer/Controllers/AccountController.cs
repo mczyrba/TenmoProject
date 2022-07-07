@@ -28,7 +28,7 @@ namespace TenmoServer.Controllers
         [HttpGet("/account/{userId}")] // step 3
         public ActionResult<Account> GetBalance(int userId)
         {
-            Account account = accountDao.GetAccountBalance(userId);
+            Account account = accountDao.GetAccount(userId);
 
             if(account != null)
             {
@@ -48,7 +48,7 @@ namespace TenmoServer.Controllers
             {
                 return BadRequest(new { message = "Invalid transfer request. Cannot transfer to same account." });
             }
-            else if(transferAmount <= 0 || transferAmount > accountDao.GetAccountBalance(fromAccount).Balance)
+            else if(transferAmount <= 0 || transferAmount > accountDao.GetAccount(fromAccount).Balance)
             {
                 return BadRequest(new { message = "Invalid transfer request. Transfer amount must be greater than 0." });
             }

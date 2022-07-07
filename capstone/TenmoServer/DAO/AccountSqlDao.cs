@@ -16,7 +16,7 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public Account GetAccountBalance(int userId)
+        public Account GetAccount(int userId)
         {
             Account returnAccount = null;
             try
