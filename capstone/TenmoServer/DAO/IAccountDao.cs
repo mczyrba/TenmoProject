@@ -10,6 +10,6 @@ namespace TenmoServer.DAO
     {
 
         Account GetAccount(int userId);
-
+        
     }
 }

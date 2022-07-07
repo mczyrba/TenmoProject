@@ -18,11 +18,13 @@ namespace TenmoServer.Controllers
 
         private readonly IAccountDao accountDao;
         private readonly ITransferDao transferDao;
+        private readonly IUserDao userDao;
 
-        public AccountController(IAccountDao _accountDao, ITransferDao _transferDao)
+        public AccountController(IAccountDao _accountDao, ITransferDao _transferDao, IUserDao _userDao)
         {
             accountDao = _accountDao;
             transferDao = _transferDao;
+            userDao = _userDao;
         }
 
         [HttpGet("/account/{userId}")] // step 3
@@ -83,6 +85,13 @@ namespace TenmoServer.Controllers
 
             return transferDetails;
             
+        }
+
+        [HttpGet("account/")]
+        public ActionResult<List<User>> GetAllUsers()
+        {
+            List<User> users = userDao.GetUsers();
+            return users;
         }
 
     }

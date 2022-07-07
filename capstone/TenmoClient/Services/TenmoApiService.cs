@@ -15,10 +15,10 @@ namespace TenmoClient.Services
         public TenmoApiService(string apiUrl) : base(apiUrl) { }
 
 
-        public Account GetAccountBalance(int userId)
+        public decimal GetAccountBalance(int userId)
         {
             RestRequest request = new RestRequest($"account/{userId}");
-            IRestResponse<Account> response = client.Get<Account>(request);
+            IRestResponse<decimal> response = client.Get<decimal>(request);
 
             CheckForError(response, "Get account balance");
             return response.Data;
@@ -51,6 +51,17 @@ namespace TenmoClient.Services
             CheckForError(response, "See transfer details by Transfer ID");
             return response.Data;
         }
+
+        public List<ApiUser> GetUsers()
+        {
+            RestRequest request = new RestRequest("account/");
+            IRestResponse<List<ApiUser>> response = client.Get<List<ApiUser>>(request);
+
+            CheckForError(response, "Get Users");
+            return response.Data;
+        }
+        
+
 
 
 

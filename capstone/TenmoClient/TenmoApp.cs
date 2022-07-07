@@ -74,22 +74,34 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                tenmoApiService.GetAccountBalance(tenmoApiService.UserId);
+                Console.WriteLine(tenmoApiService.GetAccountBalance(tenmoApiService.UserId)); 
+                console.Pause();
             }
 
             if (menuSelection == 2)
             {
-                tenmoApiService.SeeTransfers(tenmoApiService.UserId);
+                Console.WriteLine(tenmoApiService.SeeTransfers(tenmoApiService.UserId));
+                console.Pause();
             }
 
             if (menuSelection == 3)
             {
-                tenmoApiService.TransferDetails(tenmoApiService.UserId);
+                Console.WriteLine(tenmoApiService.TransferDetails(tenmoApiService.UserId));
+                console.Pause();
             }
 
             if (menuSelection == 4)
             {
-                tenmoApiService.MakeTransfer(tenmoApiService.UserId, tenmoApiService.UserId); // need to differentiate between from and to userzzxxcjzj
+                
+                foreach(ApiUser item in tenmoApiService.GetUsers())
+                {
+                    Console.WriteLine(item.Username, item.UserId);
+                    
+                }
+                console.Pause();
+
+                //tenmoApiService.MakeTransfer(tenmoApiService.UserId, tenmoApiService.UserId); // need to differentiate between from and to userzzxxcjzj
+                
             }
 
             if (menuSelection == 5)
