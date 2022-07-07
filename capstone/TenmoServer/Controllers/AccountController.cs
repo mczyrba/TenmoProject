@@ -43,27 +43,22 @@ namespace TenmoServer.Controllers
         
 
         [HttpPut("transfer/fromAccount")] // step 4
-        public ActionResult<Transfer> MakeTransfer(int fromAccount, int toAccount, decimal transferAmount)
-        {
-            Transfer transfer = transferDao.MakeTransfer(fromAccount, toAccount, transferAmount);
-
-           
+        public ActionResult MakeTransfer(int fromAccount, int toAccount, decimal transferAmount)
+        { 
             if(toAccount == fromAccount)
             {
                 return BadRequest(new { message = "Invalid transfer request. Cannot transfer to same account." });
             }
-            else if(transferAmount <= 0)
+            else if(transferAmount <= 0 || transferAmount >= accountDao.GetAccountBalance(fromAccount).Balance)
             {
                 return BadRequest(new { message = "Invalid transfer request. Transfer amount must be greater than 0." });
             }
 
-            //else if (toAccount != fromAccount && transferAmount > 0)
-            //{
-            //    return transfer;
-            //}
+            transferDao.MakeTransferSend(fromAccount, toAccount, transferAmount);
 
-            return Ok(transfer);
+            return Ok();
         }
+
         [HttpGet("transfer/{account_id}")] // step 5
         public ActionResult<List<Transfer>> GetTransfers(int accountId)
         {
@@ -90,5 +85,6 @@ namespace TenmoServer.Controllers
             return transferDetails;
             
         }
+
     }
 }
