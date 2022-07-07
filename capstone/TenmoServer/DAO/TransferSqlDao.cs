@@ -16,7 +16,37 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public Transfer MakeTransfer(int fromUser, int toUser, decimal transferAmount)
+        public void MakeTransferSend(int fromUser, int toUser, decimal transferAmount)
+        {
+            //Transfer returnTransfer = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount) VALUES (2, 2, @fromUser, @toUser, @transferAmount);" +
+                    " UPDATE account SET balance -= @transferAmount WHERE user_id = @fromUser AND balance >= @transferAmount; UPDATE account SET balance += @transferAmount WHERE user_id = @toUser;", conn);
+                    cmd.Parameters.AddWithValue("@fromUser", fromUser);
+                    cmd.Parameters.AddWithValue("@toUser", toUser);
+                    cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
+
+                    cmd.ExecuteNonQuery();
+
+                    //SqlDataReader reader = cmd.ExecuteReader();
+
+                    //if (reader.Read())
+                    //{
+                    //    returnTransfer = CreateTransferFromReader(reader);
+                    //}
+
+                    //return returnTransfer;
+                }
+            }
+            catch (SqlException) { throw; }
+        }
+
+        public Transfer MakeTransferRequest(int fromUser, int toUser, decimal transferAmount)
         {
             Transfer returnTransfer = null;
             try
@@ -25,11 +55,12 @@ namespace TenmoServer.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE account SET balance -= @transferAmount WHERE account_id = @fromUser;" +
-                        " UPDATE account SET balance += @transferAmount WHERE account_id = @toUser", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
+                        " VALUES (1, 1, @fromUser, @toUser, @transferAmount );", conn);
                     cmd.Parameters.AddWithValue("@fromUser", fromUser);
                     cmd.Parameters.AddWithValue("@toUser", toUser);
                     cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
+
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -112,5 +143,16 @@ namespace TenmoServer.DAO
 
             return transfer;
         }
+
+
+        //            ／＞　 フ
+        //            | 　_ _| 
+        //          ／` ミ＿xノ 
+        //         /　　　　 |
+        //        /　 ヽ ﾉ
+        //        │　　|　|　|
+        //   ／￣|　　 |　|　|
+        //   (￣ヽ＿_ヽ_)__)
+        //    ＼二)
     }
 }
