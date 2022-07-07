@@ -16,7 +16,7 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public Account GetAccountBalance(int userId)
+        public Account GetAccount(int userId)
         {
             Account returnAccount = null;
             try
@@ -27,7 +27,7 @@ namespace TenmoServer.DAO
                     SqlCommand cmd = new SqlCommand
                         //in the DAO we are only getting a balance back and is not allowing us to map
                         (
-                        "SELECT balance FROM account " +
+                        "SELECT account.* FROM account " +
                         "JOIN tenmo_user ON tenmo_user.user_id = account.user_id " +
                         "WHERE tenmo_user.user_id = @user_id;", 
                         conn

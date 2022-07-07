@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TenmoClient.Models;
 using TenmoClient.Services;
+using System.Net.Http;
 
 namespace TenmoClient
 {
@@ -73,27 +74,27 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                // View your current balance
+                tenmoApiService.GetAccountBalance(tenmoApiService.UserId);
             }
 
             if (menuSelection == 2)
             {
-                // View your past transfers
+                tenmoApiService.SeeTransfers(tenmoApiService.UserId);
             }
 
             if (menuSelection == 3)
             {
-                // View your pending requests
+                tenmoApiService.TransferDetails(tenmoApiService.UserId);
             }
 
             if (menuSelection == 4)
             {
-                // Send TE bucks
+                tenmoApiService.MakeTransfer(tenmoApiService.UserId, tenmoApiService.UserId); // need to differentiate between from and to userzzxxcjzj
             }
 
             if (menuSelection == 5)
             {
-                // Request TE bucks
+                // Request TE bucks OPTIONAL..... 
             }
 
             if (menuSelection == 6)
