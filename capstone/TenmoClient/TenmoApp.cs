@@ -74,22 +74,58 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                tenmoApiService.GetAccountBalance(tenmoApiService.UserId);
+                Console.WriteLine($"Your Balance is: {tenmoApiService.GetAccountBalance(tenmoApiService.UserId)}"); 
+                console.Pause();
             }
 
             if (menuSelection == 2)
             {
-                tenmoApiService.SeeTransfers(tenmoApiService.UserId);
+                Console.WriteLine(tenmoApiService.SeeTransfers(tenmoApiService.UserId));
+                console.Pause();
             }
 
             if (menuSelection == 3)
             {
-                tenmoApiService.TransferDetails(tenmoApiService.UserId);
+                Console.WriteLine(tenmoApiService.TransferDetails(tenmoApiService.UserId));
+                console.Pause();
             }
 
             if (menuSelection == 4)
             {
-                tenmoApiService.MakeTransfer(tenmoApiService.UserId, tenmoApiService.UserId); // need to differentiate between from and to userzzxxcjzj
+                int i = 1;
+                List<User> users = tenmoApiService.GetUsers();
+                foreach(User item in users)
+                {
+                    Console.WriteLine($"({i}) User: {item.Username}, ID: {item.UserId}");
+                    i++;
+                }
+                
+                Console.WriteLine("Enter user ID of account to transfer to.");
+                int transferSelection = int.Parse(Console.ReadLine());
+                Console.WriteLine($"Enter the amount you would like to transfer to account {transferSelection}.");
+                decimal transferAmount = decimal.Parse(Console.ReadLine());
+
+                tenmoApiService.MakeTransferSend(tenmoApiService.UserId, transferSelection, transferAmount);
+                Console.WriteLine($"Transfer of ${transferAmount} successful to account {transferSelection}.");
+                console.Pause();
+
+
+                
+                //int selectedUser = 0;
+                //int selection = 1;
+
+                //for(int x = 1; x < users.Count; x++)
+                //{
+                //    if(transferSelection == selection)
+                //    {
+
+                //    }
+                //    selection++;
+                //    selectedUser++;
+                //}
+                
+                //tenmoApiService.MakeTransfer(tenmoApiService.UserId, tenmoApiService.UserId); // need to differentiate between from and to userzzxxcjzj
+
             }
 
             if (menuSelection == 5)

@@ -8,7 +8,6 @@ using TenmoServer.DAO;
 using TenmoServer.Models;
 using Microsoft.AspNetCore.Authorization;
 
-
 namespace TenmoServer.Controllers
 {
     [Authorize]
@@ -19,11 +18,13 @@ namespace TenmoServer.Controllers
 
         private readonly IAccountDao accountDao;
         private readonly ITransferDao transferDao;
+        private readonly IUserDao userDao;
 
-        public AccountController(IAccountDao _accountDao, ITransferDao _transferDao)
+        public AccountController(IAccountDao _accountDao, ITransferDao _transferDao, IUserDao _userDao)
         {
             accountDao = _accountDao;
             transferDao = _transferDao;
+            userDao = _userDao;
         }
 
         [HttpGet("/account/{userId}")] // step 3
@@ -42,20 +43,25 @@ namespace TenmoServer.Controllers
         }
         
 
-        [HttpPost("transfer/fromAccount")] // step 4
-        public ActionResult MakeTransfer(int fromAccount, int toAccount, decimal transferAmount)
-        { 
-            if(toAccount == fromAccount)
+        [HttpPost("/transfer/{fromAccount}")] // step 4
+        public  ActionResult MakeTransfer(TransferRequest tr)
+        {
+           Account accountFrom = accountDao.GetAccount(tr.FromAccount);
+            Account accountTo = accountDao.GetAccount(tr.ToAccount);
+
+
+            if (tr.ToAccount == tr.FromAccount)
             {
                 return BadRequest(new { message = "Invalid transfer request. Cannot transfer to same account." });
             }
-            else if(transferAmount <= 0 || transferAmount > accountDao.GetAccount(fromAccount).Balance)
+            else if (tr.TransferAmount <= 0 || tr.TransferAmount > accountFrom.Balance)
             {
                 return BadRequest(new { message = "Invalid transfer request. Transfer amount must be greater than 0." });
             }
-
-            transferDao.MakeTransferSend(fromAccount, toAccount, transferAmount);
-
+            else
+            {
+                transferDao.MakeTransferSend(accountFrom.AccountId, accountTo.AccountId, tr.TransferAmount);
+            }
             return Ok();
         }
 
@@ -84,6 +90,13 @@ namespace TenmoServer.Controllers
 
             return transferDetails;
             
+        }
+
+        [HttpGet()]
+        public ActionResult<List<User>> GetAllUsers()
+        {
+            List<User> users = userDao.GetUsers();
+            return users;
         }
 
     }

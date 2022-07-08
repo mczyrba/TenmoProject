@@ -15,10 +15,10 @@ namespace TenmoClient.Services
         public TenmoApiService(string apiUrl) : base(apiUrl) { }
 
 
-        public Account GetAccountBalance(int userId)
+        public decimal GetAccountBalance(int userId)
         {
             RestRequest request = new RestRequest($"account/{userId}");
-            IRestResponse<Account> response = client.Get<Account>(request);
+            IRestResponse<decimal> response = client.Get<decimal>(request);
 
             CheckForError(response, "Get account balance");
             return response.Data;
@@ -32,6 +32,20 @@ namespace TenmoClient.Services
 
             CheckForError(response, "Make a transfer");
             return response.Data;
+        }
+
+        public void MakeTransferSend(int fromUser, int toUser, decimal transferAmount)  // uncertain about this... method returns void in TransferSqlDao
+        {
+            RestRequest request = new RestRequest($"transfer/{fromUser}");
+            TransferRequest newTransfer = new TransferRequest();
+            newTransfer.FromAccount = fromUser;
+            newTransfer.ToAccount = toUser;
+            newTransfer.TransferAmount = transferAmount;
+            request.AddJsonBody(newTransfer);
+            IRestResponse<Transfer> response = client.Post<Transfer>(request);
+
+            CheckForError(response, "Make a transfer");
+            
         }
 
         public List<Transfer> SeeTransfers(int accountId)
@@ -51,6 +65,16 @@ namespace TenmoClient.Services
             CheckForError(response, "See transfer details by Transfer ID");
             return response.Data;
         }
+
+        public List<User> GetUsers()
+        {
+            RestRequest request = new RestRequest("account/");
+            IRestResponse<List<User>> response = client.Get<List<User>>(request);
+
+            CheckForError(response, "Get Users");
+            return response.Data;
+        }
+       
 
 
 
