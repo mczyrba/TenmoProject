@@ -34,6 +34,20 @@ namespace TenmoClient.Services
             return response.Data;
         }
 
+        public void MakeTransferSend(int fromUser, int toUser, decimal transferAmount)  // uncertain about this... method returns void in TransferSqlDao
+        {
+            RestRequest request = new RestRequest($"transfer/{fromUser}");
+            TransferRequest newTransfer = new TransferRequest();
+            newTransfer.FromAccount = fromUser;
+            newTransfer.ToAccount = toUser;
+            newTransfer.TransferAmount = transferAmount;
+            request.AddJsonBody(newTransfer);
+            IRestResponse<Transfer> response = client.Post<Transfer>(request);
+
+            CheckForError(response, "Make a transfer");
+            
+        }
+
         public List<Transfer> SeeTransfers(int accountId)
         {
             RestRequest request = new RestRequest($"transfer/{accountId}");
@@ -52,16 +66,15 @@ namespace TenmoClient.Services
             return response.Data;
         }
 
-        public List<ApiUser> GetUsers()
+        public List<User> GetUsers()
         {
             RestRequest request = new RestRequest("account/");
-            IRestResponse<List<ApiUser>> response = client.Get<List<ApiUser>>(request);
+            IRestResponse<List<User>> response = client.Get<List<User>>(request);
 
             CheckForError(response, "Get Users");
             return response.Data;
         }
-        
-
+       
 
 
 

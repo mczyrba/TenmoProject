@@ -16,8 +16,9 @@ namespace TenmoServer.DAO
             connectionString = dbConnectionString;
         }
 
-        public void MakeTransferSend(int fromUser, int toUser, decimal transferAmount)
+        public void MakeTransferSend(int fromAccount, int toAccount, decimal transferAmount)
         {
+
             //Transfer returnTransfer = null;
             try
             {
@@ -25,10 +26,10 @@ namespace TenmoServer.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount) VALUES (2, 2, @fromUser, @toUser, @transferAmount);" +
-                    " UPDATE account SET balance -= @transferAmount WHERE user_id = @fromUser AND balance >= @transferAmount; UPDATE account SET balance += @transferAmount WHERE user_id = @toUser;", conn);
-                    cmd.Parameters.AddWithValue("@fromUser", fromUser);
-                    cmd.Parameters.AddWithValue("@toUser", toUser);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount) VALUES (2, 2, @fromAccount, @toAccount, @transferAmount);" +
+                    " UPDATE account SET balance -= @transferAmount WHERE account_id = @fromAccount AND balance >= @transferAmount; UPDATE account SET balance += @transferAmount WHERE account_id = @toAccount;", conn);
+                    cmd.Parameters.AddWithValue("@fromAccount", fromAccount);
+                    cmd.Parameters.AddWithValue("@toAccount", toAccount);
                     cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
 
                     cmd.ExecuteNonQuery();
