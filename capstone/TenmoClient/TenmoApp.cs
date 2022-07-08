@@ -80,7 +80,7 @@ namespace TenmoClient
 
             if (menuSelection == 2)
             {
-                Console.WriteLine(tenmoApiService.SeeTransfers(tenmoApiService.UserId));
+                Console.WriteLine($"{tenmoApiService.SeeTransfers(tenmoApiService.UserId)}");
                 console.Pause();
             }
 
