@@ -8,10 +8,10 @@ namespace TenmoServer.Models
     public class Transfer
     {
         public int TransferId { get; set; }
-        public string TransferType { get; set; }
-        public string TransferStatus { get; set; }
+        public int TransferType { get; set; }
+        public int TransferStatus { get; set; }
 
-        public Transfer (int transferId, string transferType, string transferStatus)
+        public Transfer (int transferId, int transferType, int transferStatus)
         {
             TransferId = transferId;
             TransferType = transferType;

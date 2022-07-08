@@ -137,8 +137,8 @@ namespace TenmoServer.DAO
         private Transfer CreateTransferFromReader(SqlDataReader reader)
         {
             int id = Convert.ToInt32(reader["transfer_id"]);
-            string transferType = Convert.ToString(reader["transfer_type"]);
-            string transferStatus = Convert.ToString(reader["transfer_status"]);
+            int transferType = Convert.ToInt32(reader["transfer_type_id"]);
+            int transferStatus = Convert.ToInt32(reader["transfer_status_id"]);
 
             Transfer transfer = new Transfer(id, transferType, transferStatus);
 
