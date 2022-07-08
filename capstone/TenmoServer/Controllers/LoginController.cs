@@ -2,9 +2,11 @@
 using TenmoServer.DAO;
 using TenmoServer.Models;
 using TenmoServer.Security;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TenmoServer.Controllers
 {
+    
     [Route("[controller]")]
     [ApiController]
     public class LoginController : ControllerBase 
@@ -44,7 +46,7 @@ namespace TenmoServer.Controllers
 
             return result;
         }
-
+        
         [HttpPost("register")]
         public IActionResult Register(LoginUser userParam)
         {
