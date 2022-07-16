@@ -80,9 +80,9 @@ namespace TenmoClient
 
             if (menuSelection == 2)
             {
-                foreach(Transfer item in tenmoApiService.SeeTransfers(2001))
+                foreach(Transfer item in tenmoApiService.SeeTransfers(tenmoApiService.UserId))
                 {
-                    Console.WriteLine($"From: {item.FromUser}, To: {item.ToUser}, Ammount: {item.TransferAmount}");
+                    Console.WriteLine($"From account number: {item.AccountFrom}, To account number: {item.AccountTo}, Ammount: ${item.Amount}");
 
                 }
                 
