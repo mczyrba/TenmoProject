@@ -139,8 +139,11 @@ namespace TenmoServer.DAO
             int id = Convert.ToInt32(reader["transfer_id"]);
             int transferType = Convert.ToInt32(reader["transfer_type_id"]);
             int transferStatus = Convert.ToInt32(reader["transfer_status_id"]);
+            int accountFrom = Convert.ToInt32(reader["account_from"]);
+            int accountTo = Convert.ToInt32(reader["account_to"]);
+            decimal amount = Convert.ToInt32(reader["amount"]);
 
-            Transfer transfer = new Transfer(id, transferType, transferStatus);
+            Transfer transfer = new Transfer(id, transferType, transferStatus,accountFrom,accountTo,amount);
 
             return transfer;
         }

@@ -74,7 +74,7 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                Console.WriteLine($"Your Balance is: {tenmoApiService.GetAccountBalance(tenmoApiService.UserId)}"); 
+                Console.WriteLine($"Your Balance is: ${tenmoApiService.GetAccountBalance(tenmoApiService.UserId)}"); 
                 console.Pause();
             }
 
