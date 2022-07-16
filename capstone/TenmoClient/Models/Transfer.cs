@@ -6,22 +6,23 @@ namespace TenmoClient.Models
 {
     public class Transfer
     {
-        public int FromUser { get; set; }
-        public int ToUser { get; set; }
-        public decimal TransferAmount { get; set; }
         public int TransferId { get; set; }
-        public int AccountId { get; set; }
-
+        public int TransferType { get; set; }
+        public int TransferStatus { get; set; }
+        public int AccountFrom { get; set; }
+        public int AccountTo { get; set; }
+        public decimal Amount { get; set; }
 
         public Transfer() { }
 
-        public Transfer(int fromUser, int toUser, decimal transferAmount, int transferId, int accountId)
+        public Transfer(int transferId, int transferType, int transferStatus, int accountFrom, int accountTo, decimal amount)
         {
-            FromUser = fromUser;
-            ToUser = toUser;
-            TransferAmount = transferAmount;
             TransferId = transferId;
-            AccountId = accountId;
+            TransferType = transferType;
+            TransferStatus = transferStatus;
+            AccountFrom = accountFrom;
+            AccountTo = accountTo;
+            Amount = amount;
         }
     }
 }
