@@ -65,7 +65,11 @@ namespace TenmoServer.Controllers
             return Ok();
         }
 
+<<<<<<< HEAD
         [HttpGet("/transfer/{account_id}")] // step 5
+=======
+        [HttpGet("/transfer/{accountId}")] // step 5
+>>>>>>> 67c873379d3d30f4fd7f8536695dd26294437722
         public ActionResult<List<Transfer>> GetTransfers(int accountId)
         {
             List<Transfer> seeTransfers = transferDao.SeeTransfers(accountId);

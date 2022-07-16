@@ -74,13 +74,18 @@ namespace TenmoClient
 
             if (menuSelection == 1)
             {
-                Console.WriteLine($"Your Balance is: {tenmoApiService.GetAccountBalance(tenmoApiService.UserId)}"); 
+                Console.WriteLine($"Your Balance is: ${tenmoApiService.GetAccountBalance(tenmoApiService.UserId)}"); 
                 console.Pause();
             }
 
             if (menuSelection == 2)
             {
-                Console.WriteLine(tenmoApiService.SeeTransfers(tenmoApiService.UserId));
+                foreach(Transfer item in tenmoApiService.SeeTransfers(2001))
+                {
+                    Console.WriteLine($"From: {item.FromUser}, To: {item.ToUser}, Ammount: {item.TransferAmount}");
+
+                }
+                
                 console.Pause();
             }
 
