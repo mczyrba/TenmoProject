@@ -77,7 +77,7 @@ namespace TenmoServer.DAO
         }
 
 
-        public List<Transfer> SeeTransfers(int accountId)
+        public List<Transfer> SeeTransfers(int userId)
         {
             List<Transfer> transfers = new List<Transfer>();
 
@@ -87,8 +87,10 @@ namespace TenmoServer.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT transfer.* FROM transfer JOIN account ON account.account_id = transfer.account_from WHERE account_id = @account_id;", conn);
-                    cmd.Parameters.AddWithValue("@account_id", accountId);
+                    SqlCommand cmd = new SqlCommand("SELECT transfer.* FROM transfer JOIN account ON account.account_id = transfer.account_from " + 
+                        "JOIN tenmo_user ON tenmo_user.user_id = account.user_id " +
+                        "WHERE tenmo_user.user_id = @userId;", conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
